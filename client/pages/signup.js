@@ -1,8 +1,12 @@
 
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import {toast} from 'react-toastify';
 import {SyncOutlined} from '@ant-design/icons';
+import Link from 'next/link';
+import { Context } from '../context';
+import {useRouter} from 'next/router';
+import user from '../../server/models/user';
 
 const signUp = () => {
     const [name, setName] = useState("");
@@ -10,16 +14,27 @@ const signUp = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const {state: {user},} = useContext(Context);
+
+    const router = useRouter();
+
+    useEffect(() => {
+       if(user !== null) router.push('/');
+    }, [user]);
+
     const handleSubmit = async (e) => {
        e.preventDefault();
        try {
         setLoading(true);
-        const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API}/signup`, {
+        const {data} = await axios.post(`/api/signup`, {
             name,
             email,
             password,
         });
         toast.success("Registration successful. Please login.");
+        setName("");
+        setEmail("");
+        setPassword("");
         setLoading(false);
        } catch (err) {
         toast.error(err.response.data);
@@ -64,6 +79,13 @@ const signUp = () => {
                        {loading ? <SyncOutlined spin /> : "Sign Up"}
                        </button>
                </form>
+               <br/>
+               <p>
+                   Already have an account?{" "}
+                   <Link href="/signin">
+                       <a>Sign In</a>
+                       </Link>
+                   </p>
            </div>
         </>
     );

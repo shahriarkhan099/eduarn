@@ -10,14 +10,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1116.0",
     "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "csurf": "^1.11.0",
     "dotenv": "^16.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.3",
+    "express-jwt": "^6.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.9",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "query-string": "^7.1.1",
+    "stripe": "^8.217.0"
   }
 }
